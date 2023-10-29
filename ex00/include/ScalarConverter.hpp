@@ -6,7 +6,7 @@
 /*   By: jgoldste <jgoldste@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 18:06:02 by jgoldste          #+#    #+#             */
-/*   Updated: 2023/10/28 18:20:55 by jgoldste         ###   ########.fr       */
+/*   Updated: 2023/10/29 18:26:07 by jgoldste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@
 
 class ScalarConverter {
 	private:
+		ScalarConverter();
 		~ScalarConverter();
 	
 	public:
 		static void	convert(std::string input);
-
 };
 
 #endif
