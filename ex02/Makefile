@@ -6,7 +6,7 @@
 #    By: jgoldste <jgoldste@student.42bangkok.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/09 10:30:11 by jgoldste          #+#    #+#              #
-#    Updated: 2023/10/25 19:43:36 by jgoldste         ###   ########.fr        #
+#    Updated: 2023/10/30 19:12:21 by jgoldste         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,8 @@ DEPS		:= $(patsubst %.cpp,$(OBJDIR)/%.d,$(SRCS))
 
 MKDIR		:= mkdir -p
 RM			:= rm -rf
+
+DSYM		:= $(wildcard *.dSYM)
 
 # Define color codes for output messages
 YELLOW		:= "\033[1;33m"
@@ -52,7 +54,7 @@ $(OBJDIR)/%.o: ./%.cpp $(HDR)
 
 # Target for cleaning the project
 clean:
-	$(RM) $(OBJDIR)
+	$(RM) $(OBJDIR) $(DSYM)
 	@echo $(YELLOW) "\n\tProject 'clean' status: DONE\n" ${END}
 
 # Target for fully cleaning the project
