@@ -6,7 +6,7 @@
 /*   By: jgoldste <jgoldste@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 18:06:08 by jgoldste          #+#    #+#             */
-/*   Updated: 2023/10/29 18:26:11 by jgoldste         ###   ########.fr       */
+/*   Updated: 2023/11/19 13:23:25 by jgoldste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ static void	setPrecision(int* prec, int* float_prec, int* double_prec) {
 		*double_prec = *prec;
 }
 
-static std::string	definePrecType(std:: string input, int* float_prec, int* double_prec) {
+static std::string	definePrecType(std::string input, int* float_prec, int* double_prec) {
 	std::string inf_nan = "undef";
 	int len = input.length();
-	if ((len == 3 && (input.compare("nan") == 0))
+	if ((len == 3 && ((input.compare("nan") == 0) || (input.compare("inf") == 0)))
 		|| (len == 4 && (input.compare("+inf") == 0 || input.compare("-inf") == 0)))
 		return input;
 	bool dot = false;
@@ -59,7 +59,7 @@ static std::string trimInput(std::string* input) {
 		input->erase(0, 1);
 	while (input->back() == ' ')
 		input->pop_back();
-	if (input->back() == 'f') {
+	if (input->back() == 'f' && input->compare("inf") != 0) {
 		if (input->length() == 4 && input->compare(1, 3, "inf") == 0) {
 			return *input;
 		} else {
@@ -70,6 +70,8 @@ static std::string trimInput(std::string* input) {
 }
 
 void	ScalarConverter::convert(std::string input) {
+	if (input.length() == 0)
+		throw std::invalid_argument("Invalid input format");
 	int float_prec = std::numeric_limits<float>::digits10;
 	int double_prec = std::numeric_limits<double>::digits10;
 	std::string inf_nan = definePrecType(trimInput(&input), &float_prec, &double_prec);

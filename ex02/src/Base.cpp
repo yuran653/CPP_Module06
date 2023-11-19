@@ -6,7 +6,7 @@
 /*   By: jgoldste <jgoldste@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 13:27:44 by jgoldste          #+#    #+#             */
-/*   Updated: 2023/10/30 18:37:30 by jgoldste         ###   ########.fr       */
+/*   Updated: 2023/11/19 16:18:52 by jgoldste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,9 @@ Base*	Base::generate(void) {
 }
 
 void	Base::identify(Base* p) {
-	if (dynamic_cast<A*>(p))
+	if (p == NULL)
+		std::cout << "Base object is not valid" << std::endl;
+	else if (dynamic_cast<A*>(p))
 		std::cout << "Pointer is identified as class A" << std::endl;
 	else if (dynamic_cast<B*>(p))
 		std::cout << "Pointer is identified as class B" << std::endl;
@@ -49,22 +51,28 @@ void	Base::identify(Base* p) {
 		std::cout << "Pointer is not identified" << std::endl;
 }
 
-void Base::identify(Base& p) {
-	std::string types[3] = {"A", "B", "C"};
-	for (int i = 0; i <=3; i++) {	
+void	Base::identify(Base& p) {
+	// if (&p != nullptr) { // since C++11
+	if (reinterpret_cast<Base*>(&p) == NULL) {
+		std::cout << "Base object is not valid" << std::endl;
+		return ;
+	} try {
+			(void)dynamic_cast<A&>(p);
+			std::cout << "Reference is identified as class A" << std::endl;
+			return ;
+		// } catch (std::bad_cast& e) {} // like the code should be
+		} catch (std::exception& e) {} // like subject asks
 		try {
-			if (i == 3 || static_cast<Base*>(&p) == NULL) {
-				std::cout << "Reference is not identified" << std::endl;
-				break;
-			} else if (types[i] == "A") {
-				(void)dynamic_cast<A&>(p);
-			} else if (types[i] == "B") {
-				(void)dynamic_cast<B&>(p);  
-			} else if (types[i] == "C") {
-				(void)dynamic_cast<C&>(p);
-			}
-			std::cout << "Reference is identified as class " << types[i] << std::endl;
-			break;	
-		} catch (std::bad_cast& e) {}
-	}
+			(void)dynamic_cast<B&>(p);
+			std::cout << "Reference is identified as class B" << std::endl;
+			return ;
+		// } catch (std::bad_cast& e) {} // like the code should be
+		} catch (std::exception& e) {} // like subject asks
+		try {
+			(void)dynamic_cast<C&>(p);
+			std::cout << "Reference is identified as class C" << std::endl;
+			return ;
+		// } catch (std::bad_cast& e) {} // like the code should be
+		} catch (std::exception& e) {} // like subject asks
+	std::cout << "Reference is not identified" << std::endl;
 }

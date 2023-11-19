@@ -6,7 +6,7 @@
 /*   By: jgoldste <jgoldste@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 13:25:36 by jgoldste          #+#    #+#             */
-/*   Updated: 2023/10/30 17:17:22 by jgoldste         ###   ########.fr       */
+/*   Updated: 2023/11/19 15:16:25 by jgoldste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 #include <exception>
 #include <iostream>
 #include <string>
+
+class NullBase {};
 
 class Base {
 	public:
